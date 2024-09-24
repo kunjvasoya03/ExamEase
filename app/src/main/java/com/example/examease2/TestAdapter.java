@@ -25,7 +25,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
     @Override
     public TestAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_item_layout, parent, false);
-        Toast.makeText(view.getContext(), "Load...", Toast.LENGTH_SHORT).show();
+
         return new ViewHolder(view);
     }
 

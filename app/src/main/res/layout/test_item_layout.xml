@@ -2,8 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="#333F4B"
     android:layout_margin="16dp"
+    android:elevation="3dp"
+    android:translationZ="10dp"
+
     android:layout_height="wrap_content">
 
     <TextView
@@ -11,32 +14,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Title"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textAlignment="center"
-        android:textSize="20dp"
-        android:layout_margin="16dp"
+        android:textSize="25dp"
+        android:layout_margin="10dp"
 
         />
 
     <ProgressBar
         android:id="@+id/testprogressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginLeft="80dp"
         android:layout_marginTop="16dp"
-        android:layout_marginRight="80dp"
-        android:progressTint="@color/black"
+        android:layout_marginLeft="45dp"
+
+        android:layout_marginRight="90dp"
+        android:progressTint="@color/white"
 
         />
+
     <TextView
         android:id="@+id/testscore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="80%"
+        android:textStyle="bold"
+        android:padding="16dp"
 
         />
 </LinearLayout>
