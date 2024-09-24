@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_SCREEN=2000;
@@ -22,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         ImageView logo = findViewById(R.id.logo);
         logo.setAnimation(topAnim);
         mAuth = FirebaseAuth.getInstance();
+        DBQuery.g_firestore= FirebaseFirestore.getInstance();
 
 
         new Handler().postDelayed(new Runnable() {
