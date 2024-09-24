@@ -11,7 +11,6 @@
     android:layout_gravity="center_horizontal"
     >
 
-
     <ImageView
         android:layout_width="400dp"
         android:layout_height="160dp"
@@ -44,9 +43,6 @@
             android:transitionName="username_tran" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
@@ -70,10 +66,6 @@
             android:layout_height="wrap_content"
             android:transitionName="username_tran" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -102,7 +94,6 @@
             android:layout_marginBottom="15dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
@@ -130,8 +121,6 @@
             android:layout_marginBottom="15dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
     <Button
         android:id="@+id/signup"
         android:layout_width="200dp"
@@ -157,6 +146,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="15dp"
         />
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>
