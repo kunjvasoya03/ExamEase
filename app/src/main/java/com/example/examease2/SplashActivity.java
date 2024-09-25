@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,7 +45,21 @@ public class SplashActivity extends AppCompatActivity {
 
                 user = mAuth.getCurrentUser();
                 if (user != null) {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                    DBQuery.loadHome(new MyCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            intent = new Intent(SplashActivity.this, MainActivity.class);
+
+                        }
+
+                        @Override
+                        public void onFailiure() {
+                            Toast.makeText(SplashActivity.this, "couldn't load in splash",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
                 } else {
                     intent = new Intent(SplashActivity.this, Login2.class);
                 }

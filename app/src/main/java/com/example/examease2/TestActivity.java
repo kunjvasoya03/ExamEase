@@ -36,7 +36,7 @@ public class TestActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         int index=getIntent().getIntExtra("INDEX",0);
-        getSupportActionBar().setTitle(HomeFragment.homeModelList.get(index).getName());
+        getSupportActionBar().setTitle(DBQuery.g_homeModelList.get(index).getName());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);

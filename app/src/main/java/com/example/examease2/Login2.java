@@ -68,8 +68,8 @@ public class Login2 extends AppCompatActivity {
                 .build();
         mGoogleSignInClient=GoogleSignIn.getClient(this,gso);
 
-        //googleCredential = oneTapClient.getSignInCredentialFromIntent(data);
-      //  idToken = googleCredential.getGoogleIdToken();
+         //googleCredential = oneTapClient.getSignInCredentialFromIntent(data);
+         //  idToken = googleCredential.getGoogleIdToken();
 
 
         glayout=findViewById(R.id.g_login);
@@ -127,10 +127,23 @@ public class Login2 extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(Login2.this, "Authentication Successfull",
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent=new Intent(Login2.this,MainActivity.class);
-                            startActivity(intent);
-                            Login2.this.finish();
+                            DBQuery.loadHome(new MyCompleteListener() {
+                                @Override
+                                public void onSuccess() {
+                                    Intent intent=new Intent(Login2.this,MainActivity.class);
+                                    startActivity(intent);
+                                    Login2.this.finish();
+                                }
+
+                                @Override
+                                public void onFailiure() {
+                                    Toast.makeText(Login2.this, "couldn't load in login",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+
 
                         } else {
                             // If sign in fails, display a message to the user.
