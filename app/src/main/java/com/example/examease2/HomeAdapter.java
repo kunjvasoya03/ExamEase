@@ -56,9 +56,9 @@ public class HomeAdapter extends BaseAdapter {
         });
 
         TextView homeName=myView.findViewById(R.id.home_name);
-        ImageView homeImage=myView.findViewById(R.id.home_img);
+        TextView noOfTests=myView.findViewById(R.id.noOfTests);
         homeName.setText(homeModelList.get(i).getName());
-        homeImage.setImageResource(homeModelList.get(i).getImg_id());
+        noOfTests.setText(homeModelList.get(i).getNoOfTests());
         return myView;
     }
 

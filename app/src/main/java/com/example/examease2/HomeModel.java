@@ -4,21 +4,12 @@ import android.graphics.Bitmap;
 
 public class HomeModel {
     String DOC_ID,name;
-    int img_id;
+    int noOfTests;
 
-
-    public int getImg_id() {
-        return img_id;
-    }
-
-    public void setImg_id(int img_id) {
-        this.img_id = img_id;
-    }
-
-    public HomeModel(String DOC_ID, String name,int img_id) {
+    public HomeModel(String DOC_ID, String name, int noOfTests) {
         this.DOC_ID = DOC_ID;
-        this.img_id = img_id;
         this.name = name;
+        this.noOfTests = noOfTests;
     }
 
     public String getDOC_ID() {
@@ -35,5 +26,13 @@ public class HomeModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNoOfTests() {
+        return String.valueOf(noOfTests);
+    }
+
+    public void setNoOfTests(int noOfTests) {
+        this.noOfTests = noOfTests;
     }
 }

@@ -24,10 +24,10 @@ public class HomeFragment extends Fragment {
         gridView=view.findViewById(R.id.home_grid);
 
         homeModelList.clear();
-        homeModelList.add(new HomeModel("1","Android",R.drawable.ic_launcher_foreground));
-        homeModelList.add(new HomeModel("2","Android",R.drawable.ic_launcher_foreground));
-        homeModelList.add(new HomeModel("3","Android",R.drawable.ic_launcher_foreground));
-        homeModelList.add(new HomeModel("4","Android",R.drawable.ic_launcher_foreground));
+        homeModelList.add(new HomeModel("1","Android",5));
+        homeModelList.add(new HomeModel("2","Android",5));
+        homeModelList.add(new HomeModel("3","Android",5));
+        homeModelList.add(new HomeModel("4","Android",5));
 
         HomeAdapter homeAdapter=new HomeAdapter(homeModelList);
         gridView.setAdapter(homeAdapter);

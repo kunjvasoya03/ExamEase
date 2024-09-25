@@ -16,32 +16,37 @@
         android:translationZ="5dp"
 
         >
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="#333F4B"
-            >
-
-            <ImageView
-                android:id="@+id/home_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_android_foreground"
-                />
+            android:background="#293B4E"
+            android:padding="16dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="home"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textAlignment="center"
                 android:id="@+id/home_name"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android"
+                android:textColor="@color/white"
 
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/noOfTests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="@color/cyan"
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"/>
         </LinearLayout>
 
 
