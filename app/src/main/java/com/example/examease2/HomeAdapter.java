@@ -49,8 +49,9 @@ public class HomeAdapter extends BaseAdapter {
         myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DBQuery.g_selected_cat_index=i;
                 Intent intent=new Intent(view.getContext(),TestActivity.class);
-                intent.putExtra("INDEX",i);
+
                 view.getContext().startActivity(intent);
             }
         });

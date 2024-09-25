@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
-    List <TestModel> testModelList;
+
     Toolbar toolbar;
     RecyclerView recyclerView;
+    TestAdapter testAdapter;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,8 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        int index=getIntent().getIntExtra("INDEX",0);
-        getSupportActionBar().setTitle(DBQuery.g_homeModelList.get(index).getName());
+
+        getSupportActionBar().setTitle(DBQuery.g_homeModelList.get(DBQuery.g_selected_cat_index).getName());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
@@ -44,26 +45,18 @@ public class TestActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        loadTestData();
+        DBQuery.loadTestData(new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+                testAdapter=new TestAdapter(DBQuery.g_testModelList);
+                recyclerView.setAdapter(testAdapter);
+            }
 
-
-        TestAdapter testAdapter=new TestAdapter(testModelList);
-        recyclerView.setAdapter(testAdapter);
-
-
-
-
-
-
-
-    }
-    void loadTestData(){
-        testModelList=new ArrayList<>();
-
-        testModelList.add(new TestModel("1",50,20) );
-        testModelList.add(new TestModel("2",50,20) );
-        testModelList.add(new TestModel("3",50,20) );
-        testModelList.add(new TestModel("4",50,20) );
+            @Override
+            public void onFailiure() {
+                Toast.makeText(TestActivity.this, "couldnot load test", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

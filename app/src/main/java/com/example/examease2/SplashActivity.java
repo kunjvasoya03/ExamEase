@@ -49,7 +49,10 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess() {
                             intent = new Intent(SplashActivity.this, MainActivity.class);
-
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                                startActivity(intent);
+                                SplashActivity.this.finish();
+                            }
                         }
 
                         @Override
@@ -62,11 +65,11 @@ public class SplashActivity extends AppCompatActivity {
 
                 } else {
                     intent = new Intent(SplashActivity.this, Login2.class);
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intent);
                     SplashActivity.this.finish();
+
                 }
+
             }
             }, SPLASH_SCREEN);
 

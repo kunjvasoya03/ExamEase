@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,8 +21,10 @@ import java.util.List;
 import java.util.Map;
 
 public class DBQuery {
+    public static int g_selected_cat_index=0;
    public static FirebaseFirestore g_firestore ;
     public static List<HomeModel>g_homeModelList=new ArrayList<>();
+    public static List <TestModel> g_testModelList=new ArrayList<>();
    public static void createuserData(String email,String name,MyCompleteListener completeListener) {
        Map<String, Object> userData = new ArrayMap<>();
        userData.put("EMAIL_ID", email);
@@ -82,4 +85,35 @@ public class DBQuery {
                    }
                });
    }
+
+    public static void loadTestData(final MyCompleteListener completeListener){
+        g_testModelList.clear();
+        g_firestore.collection("QUIZ").document(g_homeModelList.get(g_selected_cat_index).getDOC_ID())
+                .collection("TESTSLIST").document("TEST_INFO")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        int noOfTests= Integer.parseInt(g_homeModelList.get(g_selected_cat_index).getNoOfTests());
+                        for (int i=1;i<=noOfTests;i++)
+                        {
+                            g_testModelList.add(new TestModel(
+                                    documentSnapshot.getString("TEST"+i+"_ID"),
+                                    0,documentSnapshot.getLong("TEST"+i+"_TIME").intValue()
+                            ));
+                        }
+
+                        completeListener.onSuccess();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailiure();
+                    }
+                });
+
+    }
+
 }
