@@ -10,4 +10,6 @@
     <color name="cyan">#59c5dc</color>
     <color name="app_background">#292c35</color>
     <color name="barcolor">#1F2430</color>
+    <color name="cardcolor">#293B4E</color>
+
 </resources>

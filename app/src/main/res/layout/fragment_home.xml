@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#292c35"
+    android:background="@color/app_background"
     tools:context=".ui.home.HomeFragment">
 
     <GridView
 
-
         android:layout_width="0dp"
         android:layout_height="0dp"
-
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"

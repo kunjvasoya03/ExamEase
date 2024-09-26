@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#292c35"
+    android:background="@color/app_background"
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
@@ -14,7 +14,7 @@
 
     <ImageView
         android:layout_width="400dp"
-        android:layout_height="210dp"
+        android:layout_height="200dp"
         android:src="@drawable/login"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
