@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 user = mAuth.getCurrentUser();
                 if (user != null) {
-                    DBQuery.loadHome(new MyCompleteListener() {
+                    DBQuery.loadData(new MyCompleteListener() {
                         @Override
                         public void onSuccess() {
                             intent = new Intent(SplashActivity.this, MainActivity.class);
@@ -62,12 +62,10 @@ public class SplashActivity extends AppCompatActivity {
                         }
                     });
 
-
                 } else {
                     intent = new Intent(SplashActivity.this, Login2.class);
                     startActivity(intent);
                     SplashActivity.this.finish();
-
                 }
 
             }

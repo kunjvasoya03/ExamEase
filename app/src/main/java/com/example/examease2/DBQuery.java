@@ -25,6 +25,8 @@ public class DBQuery {
    public static FirebaseFirestore g_firestore ;
     public static List<HomeModel>g_homeModelList=new ArrayList<>();
     public static List <TestModel> g_testModelList=new ArrayList<>();
+    public static ProfileModel myProfile=new ProfileModel("NA",null);
+
    public static void createuserData(String email,String name,MyCompleteListener completeListener) {
        Map<String, Object> userData = new ArrayMap<>();
        userData.put("EMAIL_ID", email);
@@ -115,5 +117,35 @@ public class DBQuery {
                 });
 
     }
+    public static void getUserData(MyCompleteListener completeListener)
+    {
+        g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid()).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        myProfile.setName(documentSnapshot.getString("NAME"));
+                        myProfile.setMail(documentSnapshot.getString("EMAIL_ID"));
+                        completeListener.onSuccess();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailiure();
+                    }
+                });
+    }
+    public static void loadData(MyCompleteListener completeListener)
+    {
+        loadHome(new MyCompleteListener() {
+            @Override
+            public void onSuccess() {
+                getUserData(completeListener);
+            }
 
+            @Override
+            public void onFailiure() {
+                completeListener.onFailiure();
+            }
+        });
+    }
 }

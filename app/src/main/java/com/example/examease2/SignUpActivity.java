@@ -121,9 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     Intent intent=new Intent(SignUpActivity.this,Login2.class);
                                     startActivity(intent);
                                     SignUpActivity.this.finish();
-
                                 }
-
                                 @Override
                                 public void onFailiure() {
                                     Toast.makeText(SignUpActivity.this, "Authentication failed.",
@@ -131,11 +129,9 @@ public class SignUpActivity extends AppCompatActivity {
                                 }
                             });
 
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
 
                         }
                     }

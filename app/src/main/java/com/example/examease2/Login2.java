@@ -127,7 +127,7 @@ public class Login2 extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(Login2.this, "Authentication Successfull",
                                     Toast.LENGTH_SHORT).show();
-                            DBQuery.loadHome(new MyCompleteListener() {
+                            DBQuery.loadData(new MyCompleteListener() {
                                 @Override
                                 public void onSuccess() {
                                     Intent intent=new Intent(Login2.this,MainActivity.class);
