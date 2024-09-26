@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ExamEase2.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".QuestionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".TestActivity"
             android:exported="false" />
         <activity

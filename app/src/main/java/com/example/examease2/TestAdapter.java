@@ -1,5 +1,6 @@
 package com.example.examease2;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,13 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             testnum = itemView.findViewById(R.id.testnum);
             topscore = itemView.findViewById(R.id.testscore);
             testprogress = itemView.findViewById(R.id.testprogressBar);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i= new Intent(itemView.getContext(),QuestionsActivity.class);
+                    itemView.getContext().startActivity(i);
+                }
+            });
         }
 
         // Update UI elements with data
