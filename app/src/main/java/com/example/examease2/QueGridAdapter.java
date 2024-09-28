@@ -16,9 +16,9 @@ public class QueGridAdapter extends BaseAdapter {
     int noOfQue;
     int status;
     Context context;
-    public QueGridAdapter(int noOfQue,int status,Context context) {
+    public QueGridAdapter(int noOfQue,Context context) {
         this.noOfQue = noOfQue;
-        this.status=status;
+
         this.context=context;
     }
 

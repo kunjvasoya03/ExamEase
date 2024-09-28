@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -111,21 +110,20 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             if (prevSelecteB == null) {
                 btn.setBackgroundColor(cyanColor);
                 DBQuery.g_queModelList.get(questionId).setSelectedAns(optionNo);
-                changeState(questionId,DBQuery.ANSWERED);
-
+                changeStatus(questionId,DBQuery.ANSWERED);
                 prevSelecteB = btn;
             } else {
                 if (prevSelecteB.getId() == btn.getId()) {
                     btn.setBackgroundColor(barColor);
-                    DBQuery.g_queModelList.get(questionId).setSelectedAns(optionNo);
-                    changeState(questionId,DBQuery.UNANSWERED);
-                    prevSelecteB = btn;
+                    DBQuery.g_queModelList.get(questionId).setSelectedAns(-1);
+                    changeStatus(questionId,DBQuery.UNANSWERED);
+                    prevSelecteB = null;
                 } else {
                     prevSelecteB.setBackgroundColor(barColor);
                     btn.setBackgroundColor(cyanColor);
-                    DBQuery.g_queModelList.get(questionId).setSelectedAns(-1);
-                    changeState(questionId,DBQuery.ANSWERED);
-                    prevSelecteB = null;
+                    DBQuery.g_queModelList.get(questionId).setSelectedAns(optionNo);
+                    changeStatus(questionId,DBQuery.ANSWERED);
+                    prevSelecteB = btn;
                 }
             }
         }
@@ -140,7 +138,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 btn.setBackgroundColor(barColor);
         }
 
-        void changeState(int id,int status)
+        public void changeStatus(int id, int status)
         {
             if(DBQuery.g_queModelList.get(id).getStatus()!=DBQuery.REVIEW)
             {

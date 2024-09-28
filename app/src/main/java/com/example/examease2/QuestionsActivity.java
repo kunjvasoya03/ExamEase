@@ -54,7 +54,7 @@ public class QuestionsActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         questionsView.setLayoutManager(linearLayoutManager);
 
-        gridAdapter=new QueGridAdapter(DBQuery.g_queModelList.size(),DBQuery.g_queModelList.get(questionId).getStatus(),this);
+        gridAdapter=new QueGridAdapter(DBQuery.g_queModelList.size(),this);
         queListGrid.setAdapter(gridAdapter);
 
 
@@ -114,6 +114,10 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBQuery.g_queModelList.get(questionId).setSelectedAns(-1);
+                if(DBQuery.g_queModelList.get(questionId).getStatus()!=DBQuery.REVIEW)
+                {
+                    DBQuery.g_queModelList.get(questionId).setStatus(DBQuery.UNANSWERED);
+                }
                 questionsAdapter.notifyDataSetChanged();
             }
         });
