@@ -22,6 +22,8 @@ import java.util.Map;
 
 public class DBQuery {
     public static int g_selected_cat_index=0;
+    public static int g_selected_test_index=0;
+    public static List<QuestionsModel> g_queModelList=new ArrayList<>();
    public static FirebaseFirestore g_firestore ;
     public static List<HomeModel>g_homeModelList=new ArrayList<>();
     public static List <TestModel> g_testModelList=new ArrayList<>();
@@ -148,4 +150,37 @@ public class DBQuery {
             }
         });
     }
+    public static void loadQuestions(MyCompleteListener completeListener)
+    {
+        g_queModelList.clear();
+        g_firestore.collection("QUESTIONS").whereEqualTo("CATEGORY",g_homeModelList.get(g_selected_cat_index).getDOC_ID())
+                .whereEqualTo("TEST",g_testModelList.get(g_selected_test_index).getTestid())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        for (DocumentSnapshot doc:queryDocumentSnapshots
+                             ) {
+                            g_queModelList.add(new QuestionsModel(
+                                    doc.getString("QUESTION"),
+                                    doc.getString("A"),
+                                    doc.getString("B"),
+                                    doc.getString("C"),
+                                    doc.getString("D"),
+                                    doc.getLong("ANSWER").intValue(),
+                                    -1
+                            ));
+
+                        }
+                        completeListener.onSuccess();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                        completeListener.onFailiure();
+                    }
+                });
+    }
+
 }

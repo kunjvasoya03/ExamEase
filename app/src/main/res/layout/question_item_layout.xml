@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+    android:background="@color/darkasback"
+
+    >
+
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:background="@color/darkasback"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:scrollbars="vertical"
+        android:text="Question No.1"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:translationZ="10dp" />
+
+    <Button
+        android:id="@+id/optionA"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+
+        android:layout_marginTop="35dp"
+        android:textColor="@color/white"
+        android:text="option A"
+        android:textSize="16sp"
+
+        android:backgroundTint="@color/barcolor"
+        android:elevation="3dp"
+        android:translationZ="10dp"
+        />
+    <Button
+        android:id="@+id/optionB"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+
+        android:textColor="@color/white"
+        android:text="option A"
+        android:textSize="16sp"
+
+        android:backgroundTint="@color/barcolor"
+        android:elevation="3dp"
+        android:translationZ="10dp"
+        />
+    <Button
+        android:id="@+id/optionC"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+
+        android:textColor="@color/white"
+        android:text="option A"
+        android:textSize="16sp"
+
+        android:backgroundTint="@color/barcolor"
+        android:elevation="3dp"
+        android:translationZ="10dp"
+        />
+    <Button
+        android:id="@+id/optionD"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/white"
+        android:text="option A"
+        android:textSize="16sp"
+            android:backgroundTint="@color/barcolor"
+        android:elevation="3dp"
+        android:translationZ="10dp"
+        />
+</LinearLayout>

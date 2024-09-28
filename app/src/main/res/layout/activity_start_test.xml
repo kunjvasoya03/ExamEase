@@ -6,42 +6,42 @@
     android:background="@drawable/side_nav_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartActivity">
+    tools:context=".StartTestActivity">
 
     <LinearLayout
         android:layout_width="413dp"
         android:layout_height="167dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
+
         android:background="@drawable/side_nav_bar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         android:orientation="vertical"
         android:translationZ="10dp"
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
 
 
         >
+
         <ImageView
+            android:id="@+id/st_back"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/ic_back"
             android:layout_margin="20dp"
+            android:src="@drawable/ic_back"
             android:translationZ="10dp"
 
             />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/st_cat_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:text="Category"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:layout_marginTop="7dp"
 
             />
 
@@ -49,7 +49,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/st_test_no"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -90,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
 
-                android:background="#293B4E"
+                android:background="#323E4B"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:paddingTop="16dp">
@@ -114,6 +114,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/st_total_que"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -164,6 +165,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/st_best_sore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -214,6 +216,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/st_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"

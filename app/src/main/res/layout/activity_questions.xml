@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-
+    android:background="#181818"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuestionsActivity">
 
     <LinearLayout
+
         android:id="@+id/top_bar"
         android:layout_width="0dp"
         android:elevation="5dp"
@@ -21,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_questionid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1/5"
@@ -29,6 +31,7 @@
             android:textSize="20sp"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20 : 15 min"
@@ -41,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="Submit"
-
+            android:id="@+id/submitb"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -50,6 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll4"
         android:layout_width="0dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
@@ -61,6 +65,7 @@
         >
 
         <TextView
+            android:id="@+id/qa_cat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Android"
@@ -70,12 +75,14 @@
             android:textStyle="bold"
            />
         <ImageView
+            android:id="@+id/qa_bookmark"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_bookmark"
             android:layout_weight="1"
             />
         <ImageView
+            android:id="@+id/qa_list_gridb"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_rightmenu"
@@ -84,9 +91,8 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
+        android:id="@+id/ll3"
         android:layout_width="0dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
@@ -98,6 +104,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
         <ImageButton
+            android:id="@+id/prev_quesB"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
@@ -105,6 +112,7 @@
             android:layout_marginRight="15dp"
             />
         <Button
+            android:id="@+id/clear_selB"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="Clear Selection"
@@ -114,6 +122,7 @@
             android:backgroundTint="@color/cyan"
             />
         <Button
+            android:id="@+id/markB"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:fontFamily="sans-serif-condensed"
@@ -124,6 +133,7 @@
             android:backgroundTint="@color/cyan"
             />
         <ImageButton
+            android:id="@+id/next_quesB"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -132,6 +142,21 @@
             />
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll4"
+        android:id="@+id/questions_view"
+        android:layout_margin="16dp"
+        >
+
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

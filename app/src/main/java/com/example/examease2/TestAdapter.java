@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,13 +50,8 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             testnum = itemView.findViewById(R.id.testnum);
             topscore = itemView.findViewById(R.id.testscore);
             testprogress = itemView.findViewById(R.id.testprogressBar);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i= new Intent(itemView.getContext(),QuestionsActivity.class);
-                    itemView.getContext().startActivity(i);
-                }
-            });
+
+
         }
 
         // Update UI elements with data
@@ -65,6 +59,14 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>
             testnum.setText("Test no: " + (position + 1));  // Test number starts from 1
             topscore.setText(String.valueOf(progress) + "%");
             testprogress.setProgress(progress);  // Set the progress bar
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DBQuery.g_selected_test_index=position;
+                    Intent i= new Intent(itemView.getContext(), StartTestActivity.class);
+                    itemView.getContext().startActivity(i);
+                }
+            });
         }
     }
 }
