@@ -2,11 +2,11 @@ package com.example.examease2;
 
 public class QuestionsModel {
     String que,optionA,optionB,optionC,optionD;
-    int ans,selectedAns;
+    int ans,selectedAns,status;
 
 
 
-    public QuestionsModel(String que, String optionA, String optionB, String optionC, String optionD, int ans, int selectedAns) {
+    public QuestionsModel(String que, String optionA, String optionB, String optionC, String optionD, int ans, int selectedAns,int status) {
         this.que = que;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -14,7 +14,16 @@ public class QuestionsModel {
         this.optionD = optionD;
         this.ans = ans;
         this.selectedAns=selectedAns;
+        this.status=status;
 
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getQue() {

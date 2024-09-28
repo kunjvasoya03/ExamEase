@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,8 +15,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,16 +31,19 @@ public class QuestionsActivity extends AppCompatActivity {
     RecyclerView questionsView;
     TextView tvQuesId,timertv,catNametv;
     Button submitB,markB,clearselB;
-    ImageButton prevQuesB,nextQuesB;
+    ImageButton prevQuesB,nextQuesB,drawercloseB;
     ImageView questionListB;
     int questionId;
     QuestionsAdapter questionsAdapter;
-
+    DrawerLayout drawer;
+    GridView queListGrid;
+    ImageView markImg;
+    QueGridAdapter gridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_questions);
+        setContentView(R.layout.question_list_layout);
 
         init();
 
@@ -47,6 +53,10 @@ public class QuestionsActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         questionsView.setLayoutManager(linearLayoutManager);
+
+        gridAdapter=new QueGridAdapter(DBQuery.g_queModelList.size(),DBQuery.g_queModelList.get(questionId).getStatus(),this);
+        queListGrid.setAdapter(gridAdapter);
+
 
         setSnapHelper();
 
@@ -69,7 +79,10 @@ public class QuestionsActivity extends AppCompatActivity {
        prevQuesB=findViewById(R.id.prev_quesB);
        nextQuesB=findViewById(R.id.next_quesB);
        questionListB=findViewById(R.id.qa_list_gridb);
-
+        drawer=findViewById(R.id.drawer_layout);
+        drawercloseB=findViewById(R.id.drawercloseB);
+        markImg=findViewById(R.id.mark_img);
+        queListGrid=findViewById(R.id.que_list_grid);
        questionId=0;
        tvQuesId.setText("1/"+ String.valueOf(DBQuery.g_queModelList.size()));
        catNametv.setText(DBQuery.g_homeModelList.get(DBQuery.g_selected_cat_index).getName());
@@ -104,6 +117,58 @@ public class QuestionsActivity extends AppCompatActivity {
                 questionsAdapter.notifyDataSetChanged();
             }
         });
+
+        questionListB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!drawer.isDrawerOpen(GravityCompat.END)){
+                    gridAdapter.notifyDataSetChanged();
+                    drawer.openDrawer(GravityCompat.END);
+                }
+
+                drawercloseB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(drawer.isDrawerOpen(GravityCompat.END)){
+                            drawer.closeDrawer(GravityCompat.END);
+                        }
+                    }
+                });
+            }
+        });
+
+        markB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(markImg.getVisibility()!=View.VISIBLE)
+                {
+                    markImg.setVisibility(View.VISIBLE);
+                    DBQuery.g_queModelList.get(questionId).setStatus(DBQuery.REVIEW);
+
+
+                }
+                else {
+                    markImg.setVisibility(View.GONE);
+                    if(DBQuery.g_queModelList.get(questionId).getSelectedAns()!=-1)
+                    {
+                        DBQuery.g_queModelList.get(questionId).setStatus(DBQuery.ANSWERED);
+                    }
+                    else
+                    {
+                        DBQuery.g_queModelList.get(questionId).setStatus(DBQuery.UNANSWERED);
+                    }
+                }
+            }
+        });
+    }
+    void goToQue(int position)
+    {
+        questionsView.smoothScrollToPosition(position);
+        if(drawer.isDrawerOpen(GravityCompat.END))
+        {
+            drawer.closeDrawer(GravityCompat.END);
+
+        }
     }
 
     public void startTimer(){
@@ -137,7 +202,10 @@ public class QuestionsActivity extends AppCompatActivity {
                 View view=snapHelper.findSnapView(recyclerView.getLayoutManager());
                 questionId=recyclerView.getLayoutManager().getPosition(view);
                 tvQuesId.setText(String.valueOf(questionId+1+"/"+String.valueOf(DBQuery.g_queModelList.size())));
-
+                if(DBQuery.g_queModelList.get(questionId).getStatus()==DBQuery.NOT_VISITED)
+                {
+                    DBQuery.g_queModelList.get(questionId).setStatus(DBQuery.UNANSWERED);
+                }
             }
 
             @Override

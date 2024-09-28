@@ -12,5 +12,10 @@
     <color name="barcolor">#1F2430</color>
     <color name="cardcolor">#293B4E</color>
     <color name="darkasback">#181818</color>
+    <color name="greybutcyan">#5F8087</color>
+    <color name="grey">#6D6B6B</color>
+    <color name="red">#9C1111</color>
+    <color name="yellow">#BBA005</color>
+    <color name="green">#59DC75</color>
 
 </resources>

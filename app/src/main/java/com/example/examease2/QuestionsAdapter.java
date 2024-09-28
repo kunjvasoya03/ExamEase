@@ -111,16 +111,20 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             if (prevSelecteB == null) {
                 btn.setBackgroundColor(cyanColor);
                 DBQuery.g_queModelList.get(questionId).setSelectedAns(optionNo);
+                changeState(questionId,DBQuery.ANSWERED);
+
                 prevSelecteB = btn;
             } else {
                 if (prevSelecteB.getId() == btn.getId()) {
                     btn.setBackgroundColor(barColor);
                     DBQuery.g_queModelList.get(questionId).setSelectedAns(optionNo);
+                    changeState(questionId,DBQuery.UNANSWERED);
                     prevSelecteB = btn;
                 } else {
                     prevSelecteB.setBackgroundColor(barColor);
                     btn.setBackgroundColor(cyanColor);
                     DBQuery.g_queModelList.get(questionId).setSelectedAns(-1);
+                    changeState(questionId,DBQuery.ANSWERED);
                     prevSelecteB = null;
                 }
             }
@@ -135,5 +139,16 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             else
                 btn.setBackgroundColor(barColor);
         }
+
+        void changeState(int id,int status)
+        {
+            if(DBQuery.g_queModelList.get(id).getStatus()!=DBQuery.REVIEW)
+            {
+                DBQuery.g_queModelList.get(id).setStatus(status);
+            }
+
+        }
+
     }
+
 }

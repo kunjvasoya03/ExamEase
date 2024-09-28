@@ -23,6 +23,10 @@ import java.util.Map;
 public class DBQuery {
     public static int g_selected_cat_index=0;
     public static int g_selected_test_index=0;
+    public static final int NOT_VISITED=0;
+    public static final int UNANSWERED=1;
+    public static final int ANSWERED=2;
+    public static final int REVIEW=3;
     public static List<QuestionsModel> g_queModelList=new ArrayList<>();
    public static FirebaseFirestore g_firestore ;
     public static List<HomeModel>g_homeModelList=new ArrayList<>();
@@ -168,7 +172,8 @@ public class DBQuery {
                                     doc.getString("C"),
                                     doc.getString("D"),
                                     doc.getLong("ANSWER").intValue(),
-                                    -1
+                                    -1,
+                                    NOT_VISITED
                             ));
 
                         }
