@@ -1,5 +1,7 @@
 package com.example.examease2;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -39,6 +42,7 @@ public class QuestionsActivity extends AppCompatActivity {
     GridView queListGrid;
     ImageView markImg;
     QueGridAdapter gridAdapter;
+    CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,8 @@ public class QuestionsActivity extends AppCompatActivity {
        questionId=0;
        tvQuesId.setText("1/"+ String.valueOf(DBQuery.g_queModelList.size()));
        catNametv.setText(DBQuery.g_homeModelList.get(DBQuery.g_selected_cat_index).getName());
+
+       DBQuery.g_queModelList.get(0).setStatus(DBQuery.UNANSWERED);
     }
 
     public void setClickListeners(){
@@ -164,7 +170,47 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        submitB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitTest();
+            }
+        });
     }
+
+    void submitTest(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(QuestionsActivity.this);
+        builder.setCancelable(true);
+
+        View view=getLayoutInflater().inflate(R.layout.alert_dialog_layout,null);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button cancleB =view.findViewById(R.id.cancelB);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button confirmB =view.findViewById(R.id.confirmB);
+
+        builder.setView(view);
+        AlertDialog alertDialog=builder.create();
+
+        cancleB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        confirmB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timer.cancel();
+                alertDialog.dismiss();
+                Intent intent=new Intent(QuestionsActivity.this,ScoreActivity.class);
+                startActivity(intent);
+                QuestionsActivity.this.finish();
+            }
+        });
+        alertDialog.show();
+
+    }
+
     void goToQue(int position)
     {
         questionsView.smoothScrollToPosition(position);
@@ -177,7 +223,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     public void startTimer(){
         long totaltime=DBQuery.g_testModelList.get(DBQuery.g_selected_test_index).getTime()*60*1000;
-        CountDownTimer timer=new CountDownTimer(totaltime,1000) {
+         timer=new CountDownTimer(totaltime,1000) {
             @Override
             public void onTick(long remaningtime) {
                 String time=String.format("%02d:%02d min", TimeUnit.MILLISECONDS.toMinutes(remaningtime),
@@ -189,7 +235,9 @@ public class QuestionsActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                Intent intent=new Intent(QuestionsActivity.this,ScoreActivity.class);
+                startActivity(intent);
+                QuestionsActivity.this.finish();
             }
         };
         timer.start();
@@ -209,6 +257,13 @@ public class QuestionsActivity extends AppCompatActivity {
                 if(DBQuery.g_queModelList.get(questionId).getStatus()==DBQuery.NOT_VISITED)
                 {
                     DBQuery.g_queModelList.get(questionId).setStatus(DBQuery.UNANSWERED);
+                }
+                if(DBQuery.g_queModelList.get(questionId).getStatus()==DBQuery.REVIEW)
+                {
+                    markImg.setVisibility(View.VISIBLE);
+                }
+                else{
+                    markImg.setVisibility(View.GONE);
                 }
             }
 

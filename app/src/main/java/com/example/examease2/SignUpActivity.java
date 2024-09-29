@@ -90,6 +90,10 @@ public class SignUpActivity extends AppCompatActivity {
             password.setError("Enter Password");
             return false;
         }
+        if(Password.length()<=6){
+            Toast.makeText(this,"Enter Password must be greater than 6 character",Toast.LENGTH_SHORT).show();
+            return  false;
+        }
 
         if(Confirmpassword.isEmpty()){
             confirmpassword.setError("Enter Confirm Password");
