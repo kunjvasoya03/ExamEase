@@ -43,6 +43,7 @@ public class QuestionsActivity extends AppCompatActivity {
     ImageView markImg;
     QueGridAdapter gridAdapter;
     CountDownTimer timer;
+    Long time_left;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +204,8 @@ public class QuestionsActivity extends AppCompatActivity {
                 timer.cancel();
                 alertDialog.dismiss();
                 Intent intent=new Intent(QuestionsActivity.this,ScoreActivity.class);
+                long total_time=DBQuery.g_testModelList.get(DBQuery.g_selected_test_index).getTime()*60*1000;
+                intent.putExtra("TIME_TAKEN",total_time-time_left);
                 startActivity(intent);
                 QuestionsActivity.this.finish();
             }
@@ -226,15 +229,18 @@ public class QuestionsActivity extends AppCompatActivity {
          timer=new CountDownTimer(totaltime,1000) {
             @Override
             public void onTick(long remaningtime) {
+                time_left=remaningtime;
                 String time=String.format("%02d:%02d min", TimeUnit.MILLISECONDS.toMinutes(remaningtime),
                         TimeUnit.MILLISECONDS.toSeconds(remaningtime)-
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remaningtime)));
+
                 timertv.setText(time);
 
             }
 
             @Override
             public void onFinish() {
+                Toast.makeText(QuestionsActivity.this,"your exam time is ended",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(QuestionsActivity.this,ScoreActivity.class);
                 startActivity(intent);
                 QuestionsActivity.this.finish();

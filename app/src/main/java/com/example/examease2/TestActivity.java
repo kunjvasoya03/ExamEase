@@ -30,8 +30,8 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        toolbar=findViewById(R.id.toolbar2);
         recyclerView=findViewById(R.id.testrecyclerview);
+        toolbar=findViewById(R.id.toolbar2);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -48,16 +48,24 @@ public class TestActivity extends AppCompatActivity {
         DBQuery.loadTestData(new MyCompleteListener() {
             @Override
             public void onSuccess() {
-                testAdapter=new TestAdapter(DBQuery.g_testModelList);
-                recyclerView.setAdapter(testAdapter);
-            }
+                DBQuery.loadMyScores(new MyCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        testAdapter=new TestAdapter(DBQuery.g_testModelList);
+                       recyclerView.setAdapter(testAdapter);
+                    }
 
+                    @Override
+                    public void onFailiure() {
+                        Toast.makeText(TestActivity.this, "couldnot load test", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
             @Override
             public void onFailiure() {
                 Toast.makeText(TestActivity.this, "couldnot load test", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override

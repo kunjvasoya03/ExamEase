@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import java.util.Map;
 public class DBQuery {
     public static int g_selected_cat_index=0;
     public static int g_selected_test_index=0;
+    public static RankModel myPerformance=new RankModel(0,-1);
+
     public static final int NOT_VISITED=0;
     public static final int UNANSWERED=1;
     public static final int ANSWERED=2;
@@ -131,6 +134,8 @@ public class DBQuery {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         myProfile.setName(documentSnapshot.getString("NAME"));
                         myProfile.setMail(documentSnapshot.getString("EMAIL_ID"));
+                        myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
+
                         completeListener.onSuccess();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -186,6 +191,63 @@ public class DBQuery {
                         completeListener.onFailiure();
                     }
                 });
+    }
+    public static void loadMyScores(MyCompleteListener completeListener)
+    {
+        g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
+                .collection("USER_DATA").document("MY_SCORES")
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        for(int i=0;i<g_testModelList.size();i++)
+                        {
+                            int top=0;
+                            if(documentSnapshot.get(g_testModelList.get(i).getTestid())!=null)
+                            {
+                                top=documentSnapshot.getLong(g_testModelList.get(i).getTestid()).intValue();
+                            }
+                            g_testModelList.get(i).setTopscore(top);
+                        }
+                        completeListener.onSuccess();
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        completeListener.onFailiure();
+                    }
+                });
+    }
+
+    public  static void saveResult(int score,MyCompleteListener completeListener)
+    {
+        WriteBatch batch=g_firestore.batch();
+        DocumentReference user_doc=g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid());
+        batch.update(user_doc,"TOTAL_SCORE",score);
+        if(score>g_testModelList.get(g_selected_test_index).getTopscore());
+        {
+            Map<String,Object>testData=new ArrayMap<>();
+            testData.put(g_testModelList.get(g_selected_test_index).getTestid(),score);
+
+            DocumentReference score_doc=user_doc.collection("USER_DATA").document("MY_SCORES");
+            batch.set(score_doc,testData, SetOptions.merge());
+        }
+        batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                if(score>g_testModelList.get(g_selected_test_index).getTopscore())
+                {
+                    g_testModelList.get(g_selected_test_index).setTopscore(score);
+                    myPerformance.setScore(score);
+                    completeListener.onSuccess();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                completeListener.onFailiure();
+            }
+        });
     }
 
 }
